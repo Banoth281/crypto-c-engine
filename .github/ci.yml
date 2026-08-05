@@ -20,3 +20,31 @@ jobs:
 
     - name: Execute Tests
       run: ./bin/crypto_engine test
+
+name: C/C++ Modular Cryptography CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Compile Application & Tests
+      run: |
+        mkdir bin
+        gcc -Iinclude src/crypto.c src/main.c -o bin/crypto_engine
+        gcc -Iinclude src/crypto.c tests/test_crypto.c -o bin/test_suite
+
+    - name: Run Main Test Suite
+      run: ./bin/crypto_engine test
+
+    - name: Run Extended Integration Test
+      run: ./bin/test_suite
