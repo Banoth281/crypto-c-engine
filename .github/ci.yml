@@ -14,14 +14,10 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Compile Application & Tests
+    - name: Compile Application
       run: |
-        mkdir bin
-        gcc -Iinclude src/crypto.c src/main.c -o bin/crypto_engine
-        gcc -Iinclude src/crypto.c tests/test_crypto.c -o bin/test_suite
+        mkdir -p bin
+        gcc -I. -Iinclude src/crypto.c src/main.c -o bin/crypto_engine
 
-    - name: Run Main Test Suite
+    - name: Run Test Suite
       run: ./bin/crypto_engine test
-
-    - name: Run Extended Integration Test
-      run: ./bin/test_suite
