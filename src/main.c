@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include "../crypto.h"
+#include "crypto.h"
 
 void run_unit_tests() {
     char original[] = "HelloLiverpool";
